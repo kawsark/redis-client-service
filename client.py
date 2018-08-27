@@ -50,13 +50,15 @@ def read(key):
 def getserverconnection():
     serverms_host = None
     serverms_port = None
+    serverms_pass = None
     s1 = ""
 
     #First try with environment variables:
     if "REDIS_HOST" in os.environ and "REDIS_PORT" in os.environ:
         serverms_host = os.environ['REDIS_HOST']
         serverms_port = int(os.environ['REDIS_PORT'])
-        s1 = 'Using environment variable redis host and port: %s:%s' % (serverms_host, serverms_port)
+        serverms_pass = os.environ['REDIS_PASSWORD']
+        s1 = 'Using environment variable redis host:port [password]: %s:%s [hidden]' % (serverms_host, serverms_port)
         print(s1)
 
     else: #Load from config file
@@ -68,8 +70,8 @@ def getserverconnection():
 
             serverms_host = cfg['redis_host']
             serverms_port = int(cfg['redis_port'])
-            s1 = 'Using config file redis host and port: %s:%s' % (serverms_host, serverms_port)
-            print(s1)
+            serverms_pass = cfg['redis_password']
+            s1 = 'Using config file redis host:port [password]: %s:%s [hidden]' % (serverms_host, serverms_port)
 
         except Exception as e:
             s = 'Encountered file issue: ' + str(e)
@@ -79,7 +81,7 @@ def getserverconnection():
     try:
         #Attempt connection to Redis
         print('Attempting Redis connection to: %s:%s' % (serverms_host, serverms_port))
-        r = redis.Redis(host=serverms_host,port=serverms_port)
+        r = redis.Redis(host=serverms_host,port=serverms_port,password=serverms_pass)
         return (r, s1)
 
     except Exception as e:

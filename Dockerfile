@@ -1,4 +1,4 @@
-FROM python:3
+FROM python:slim
 WORKDIR /tmp
 ADD client.py .
 ADD config.yml .
