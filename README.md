@@ -18,7 +18,7 @@ python -m flask run --host=0.0.0.0
 ### Running as Docker container:
 ```
 docker build -t python-clientms .
-docker run --name clientms --net=host -d -e REDIS_HOST=localhost -e REDIS_PORT=6379 -e REDIS_PASSWORD=foobar-p 5000:5000 python-clientms
+docker run --name clientms --net=host -d -e REDIS_HOST=localhost -e REDIS_PORT=6379 -e REDIS_PASSWORD=foobar -p 5000:5000 python-clientms
 ```
 
 ### Interact with the application:
