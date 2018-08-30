@@ -3,6 +3,7 @@ import redis
 import random
 import os
 from flask import Flask
+from flask import Response
 app = Flask(__name__)
 
 #Welcome page
@@ -20,7 +21,7 @@ def main():
     else:
         html = html + "  - Test connection to redis service failed, please check logs for more details.\n"
 
-    return html
+    return Response(html, mimetype='text/markdown')
 
 #Write a string to Redis
 @app.route('/write/<value>')
