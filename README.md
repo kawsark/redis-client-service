@@ -1,9 +1,8 @@
 # redis-client-service
 A lightweight python client with HTTP API for interacting with Redis. 
-- Note: this branch has an additional `redis_password` parameter that can be supplied
 
 ### Pre-requisites:
-- A Redis service. Example Docker command: `docker run --name test-redis -p 6379:6379 -d redis redis-server --requirepass foobar`
+- A Redis service. Example Docker command: `docker run --name test-redis -p 6379:6379 -d redis redis-server`
 - Python with pyyaml redis and Flask. Install using: `pip install pyyaml redis Flask`
 
 ### Running from command line:
@@ -12,6 +11,7 @@ export FLASK_APP=client.py
 export REDIS_HOST=localhost 
 export REDIS_PORT=6379 
 export REDIS_PASSWORD=foobar 
+=======
 python -m flask run --host=0.0.0.0 
 ```
 
