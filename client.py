@@ -3,23 +3,25 @@ import redis
 import random
 import os
 from flask import Flask
+from flask import Response
 app = Flask(__name__)
 
 #Welcome page
 @app.route('/')
 def main():
-    html = 'Client service is accessible. To send a server microservice request try: /write/<value>, /read/<key> or /test'
-    html = html + "\nTesting Redis server connection:\n"
+    html = '### redis-client-service'
+    html = html + '\n- Client status: Available.\n  - Valid endpoints are: `/write/<value>` and `/read/<key>`'
+    html = html + '\n- Server status: testing connection to Redis:\n```'
     r , s = getserverconnection()
-    html = html + s + "\n"
+    html = html + s + "```\n"
 
     if r is not None:
         r.exists("test")
-        html = html + "Test connection to redis service successful.\n"
+        html = html + "  - Test connection to redis service successful.\n"
     else:
-        html = html + "Test connection to redis service failed, please check logs for more details.\n"
+        html = html + "  - Test connection to redis service failed, please check logs for more details.\n"
 
-    return html
+    return Response(html, mimetype='text/markdown')
 
 #Write a string to Redis
 @app.route('/write/<value>')
